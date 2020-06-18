@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import "./App.css";
 import Header from "./Header";
 import Table from "./Table";
-import Cell from './Cell'
+import { MDBBtn, MDBInput } from "mdbreact"; // bootstrap components
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +21,7 @@ class App extends Component {
   }
 
   async fetchPokemon() {
-    for (let i=1; i<=151; i++) {
+    for (let i=1; i<=807; i++) {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/` + i)
       const json = await response.json()
       this.setState({pokemon: this.state.pokemon.concat(json)})
@@ -38,7 +39,7 @@ class App extends Component {
       const pokemon = this.state.search.toLowerCase();
       this.state.pokemon.forEach((i) => {
         if (i.name === pokemon) {
-          this.setState({singleSearch: true, searchedPokemon: i})
+          this.setState({singleSearch: true, searchedPokemon: [i]})
           found = true
         }
       })
@@ -61,13 +62,15 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className="input">
-          <input type="text" placeholder="Search for Pokemon" onChange={this.handleChange} value={this.state.search}></input>
-          <button type="submit" value="search" onClick={this.handleClick}>Search</button>
-          <button type="submit" value="reset" onClick={this.handleClick}>Reset</button>
+          <MDBInput label="Search for Pokemon" type="text" onChange={this.handleChange} value={this.state.search} />
+          <MDBBtn color="success" type="submit" value="search" onClick={this.handleClick}>Search</MDBBtn>
+          <MDBBtn color="elegant" type="submit" value="reset" onClick={this.handleClick}>Reset</MDBBtn>
         </div>
         <div>
-          {(!this.state.seeAll) ? <button onClick={() => this.setState({seeAll: true})}>See All</button> : <Table value={this.state.pokemon}/>}
-          {(!this.state.singleSearch) ? <div /> : <Cell value={this.state.searchedPokemon} />}
+          {(!this.state.singleSearch) ? <div /> 
+            : <Table value={this.state.searchedPokemon} />}
+          {(!this.state.seeAll) ? <MDBBtn color="info" onClick={() => this.setState({seeAll: true})}>See All</MDBBtn> 
+            : <Table value={this.state.pokemon}/>}
         </div>
       </div>
     );
