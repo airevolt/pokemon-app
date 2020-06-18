@@ -78,3 +78,20 @@ class App extends Component {
 }
 
 export default App;
+
+// To pass data from child component to parent component
+
+// In Parent Component:
+
+// getData(val){
+//     // do not forget to bind getData in constructor
+//     console.log(val);
+// }
+// render(){
+//  return(<Child sendData={this.getData}/>);
+// }
+// In Child Component:
+
+// demoMethod(){
+//    this.props.sendData(value);
+//  }

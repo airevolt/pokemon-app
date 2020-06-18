@@ -5,8 +5,11 @@ import { MDBBtn, MDBDataTable, MDBPopover, MDBPopoverBody  } from 'mdbreact';
 import _ from 'lodash'; // to capitalize the first letter of every pokemon (yes I am lazy)
 
 function Table(props) {
-    // columns for table
+
+
+    // data for datatable
     let data = {
+        // columns for table
         columns: [
             {
                 label: 'Picture',
